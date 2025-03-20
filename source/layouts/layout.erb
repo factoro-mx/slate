@@ -39,6 +39,7 @@ under the License.
       <% end %>
     <% end %>
     <title><%= current_page.data.title || "API Documentation" %></title>
+    <%= favicon_tag 'favicon.ico' %>
 
     <style media="screen">
       <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
@@ -72,7 +73,7 @@ under the License.
       </span>
     </a>
     <div class="toc-wrapper">
-      <%= image_tag "logo.png", class: 'logo' %>
+      <%= image_tag "logo.svg", class: 'logo' %>
       <% if language_tabs.any? %>
         <div class="lang-selector">
           <% language_tabs.each do |lang| %>

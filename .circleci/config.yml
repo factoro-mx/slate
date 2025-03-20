@@ -1,0 +1,56 @@
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@2.0.0
+
+jobs:
+  build:
+    working_directory: ~/repo
+    # Pull latest slate image
+    machine: true
+    steps:
+      # Check out repo
+      - checkout
+      # Pull slate image
+      - run:
+          name: Pull Docker image
+          command: docker build . -t slatedocs/slate
+      # Build the docs
+      - run:
+          name: Build the docs
+          command: docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate build
+      # Store the build
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - build
+  deploy:
+    working_directory: ~/repo
+    docker:
+      - image: "cimg/python:3.6"
+    steps:
+      - attach_workspace:
+          at: build
+      - aws-s3/sync:
+          arguments: |
+            --cache-control "no-cache" \
+            --acl public-read
+          from: build/*
+          to: "s3://docs.factoro.mx"
+workflows:
+  build:
+    jobs:
+      # Builds the npm project for S3 deployment
+      - build:
+          filters:
+            branches:
+              only:
+                - main
+      # Deploys to the S3 in QA
+      - deploy:
+          requires:
+            - build
+          context: master
+          filters:
+            branches:
+              only:
+                - main
