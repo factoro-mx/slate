@@ -49,7 +49,7 @@ workflows:
       - deploy:
           requires:
             - build
-          context: master
+          context: prod
           filters:
             branches:
               only:
