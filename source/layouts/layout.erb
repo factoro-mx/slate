@@ -63,6 +63,94 @@ under the License.
       $(function() { setupCodeCopy(); });
     </script>
     <% end %>
+
+    <!-- Google Analytics 4 -->
+    <% if config[:google_analytics_id] %>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= config[:google_analytics_id] %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Parse UTM parameters from URL for authenticated user tracking
+      function getUTMParameters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return {
+          utm_source: urlParams.get('utm_source'),
+          utm_medium: urlParams.get('utm_medium'),
+          utm_campaign: urlParams.get('utm_campaign'),
+          utm_content: urlParams.get('utm_content')
+        };
+      }
+
+      const utmParams = getUTMParameters();
+
+      gtag('config', '<%= config[:google_analytics_id] %>', {
+        // Enhanced measurement for better tracking
+        enhanced_measurement: true,
+        // Track file downloads
+        track_downloads: true,
+        // Include UTM parameters in session
+        campaign_source: utmParams.utm_source,
+        campaign_medium: utmParams.utm_medium,
+        campaign_name: utmParams.utm_campaign,
+        campaign_content: utmParams.utm_content,
+        // Custom event tracking for documentation sections
+        custom_map: {
+          'custom_parameter_1': 'user_type',
+          'custom_parameter_2': 'auth_method'
+        }
+      });
+
+      // Track authenticated access with UTM context
+      <% if current_page.url.include?('/buyers') %>
+      gtag('event', 'authenticated_access', {
+        'user_type': 'buyers',
+        'section': 'buyers_documentation',
+        'auth_method': 'http_basic_auth',
+        'utm_source': utmParams.utm_source || 'direct',
+        'utm_medium': utmParams.utm_medium || 'none',
+        'utm_campaign': utmParams.utm_campaign || 'none'
+      });
+
+      // Page view with enhanced context
+      gtag('event', 'page_view', {
+        'user_type': 'buyers',
+        'section': 'buyers_documentation',
+        'authenticated': 'true'
+      });
+      <% elsif current_page.url.include?('/financial_institutions') %>
+      gtag('event', 'authenticated_access', {
+        'user_type': 'financial_institutions',
+        'section': 'fi_documentation',
+        'auth_method': 'http_basic_auth',
+        'utm_source': utmParams.utm_source || 'direct',
+        'utm_medium': utmParams.utm_medium || 'none',
+        'utm_campaign': utmParams.utm_campaign || 'none'
+      });
+
+      // Page view with enhanced context
+      gtag('event', 'page_view', {
+        'user_type': 'financial_institutions',
+        'section': 'fi_documentation',
+        'authenticated': 'true'
+      });
+      <% end %>
+
+      // Track authentication success event (fires once per session)
+      if (utmParams.utm_source && !sessionStorage.getItem('auth_tracked')) {
+        gtag('event', 'authentication_success', {
+          'method': 'http_basic_auth',
+          'user_type': utmParams.utm_source.replace('_api', ''),
+          'utm_source': utmParams.utm_source,
+          'utm_medium': utmParams.utm_medium,
+          'utm_campaign': utmParams.utm_campaign
+        });
+        sessionStorage.setItem('auth_tracked', 'true');
+      }
+    </script>
+    <% end %>
   </head>
 
   <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">

@@ -39,6 +39,9 @@ end
 activate :relative_assets
 set :relative_links, true
 
+# Enable directory indexes for pretty URLs in development
+activate :directory_indexes
+
 # Build Configuration
 configure :build do
   # We do want to hash woff and woff2 as there's a bug where woff2 will use
@@ -58,6 +61,18 @@ end
 # If you want Middleman to listen on a different port, you can set that below
 set :port, 4567
 set :url, 'https://api.factoro.mx'
+
+# Google Analytics Configuration
+# Set your Google Analytics 4 Measurement ID here
+# Format: G-XXXXXXXXXX
+set :google_analytics_id, ENV['GOOGLE_ANALYTICS_ID'] || nil
+
+# Development configuration
+configure :development do
+  set :url, 'https://sandbox-api.factoro.mx'
+  # Optionally disable GA in development
+  # set :google_analytics_id, nil
+end
 
 helpers do
   require './lib/toc_data.rb'

@@ -49,7 +49,9 @@ workflows:
       - deploy:
           requires:
             - build
-          context: prod
+          context:
+            - prod
+            - slate
           filters:
             branches:
               only:

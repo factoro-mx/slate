@@ -23,5 +23,23 @@ _yardoc
 doc/
 .idea/
 
+# Password files - NEVER commit these to Git!
+.htpasswd*
+*.htpasswd
+*-.htpasswd
+buyers-.htpasswd
+financial_institutions-.htpasswd
+# New location - password files in source directories
+source/buyers/.htpasswd
+source/financial_institutions/.htpasswd
+# Built password files
+build/buyers/.htpasswd
+build/financial_institutions/.htpasswd
+
+# Environment variables - NEVER commit sensitive data!
+.env
+.env.local
+.env.production
+
 # Vagrant artifacts
 ubuntu-*-console.log

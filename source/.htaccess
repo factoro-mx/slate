@@ -1,0 +1,13 @@
+# Redirect root index to main Factoro website
+RewriteEngine On
+RewriteRule ^index\.html$ https://factoro.mx [R=301,L]
+RewriteRule ^$ https://factoro.mx [R=301,L]
+
+# Security headers for the documentation
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# HTTPS redirect (if needed)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
