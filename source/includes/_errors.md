@@ -11,4 +11,5 @@ Code | Meaning | Description
 404 | Not Found | The specified recource could not be found
 405 | Method Not Allowed | You tried to access a resource with the wrong method
 406 | Not Acceptable | You requested a format that isn't json.
+422 | Unprocessable entity | Your request is incorrect.
 500 | Internal Server Error | We had a problem with our server. A description of the problem will be returned.
