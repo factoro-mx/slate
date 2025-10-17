@@ -29,9 +29,11 @@ Some actions of this API trigger notifications. This means that some (or all) of
 in each instruction will receive and email with the corresponding information.
 Each action that does, will have it in the description.
 
+We broke down information result into Models, to maintain a simpler and cleaner looking documentation. You can see our models <a class="link" href="#models">here</a>.
+
 # Sandbox
 
-The endpoints are the same in both Sandbox and Production environments. The only thing that changes is the base URL.
+The endpoints are the same in both Sandbox and Production environments. The only thing that changes is the base URI.
 
 To use the API in Sandbox mode, replace the base url with `https://sandbox-api.factoro.mx`.
 
@@ -225,6 +227,7 @@ Returns a <a class="link" href="#operations-report">Operations report</a> instan
 | -------------------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | date                       | String  | `false`   | The date to check the report. Defaults to current date                                               |
 
+# Models
 
 ## Financing Process
 
