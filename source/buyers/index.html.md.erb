@@ -133,10 +133,14 @@ Returns a <a class="link" href="#financing-process">Financing process</a> instan
 | -------------------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | file                       | Binary  | `true`   | The file to upload                                                                                   |
 
+## Get Process Status
 
-## Financing Process
+```shell
+curl -X GET "<%= config[:url] %>/v1/companies/buyers/financing_processes/${token}" \
+  -H "Authorization: Bearer ${secret_key}" -H "X-API-KEY: ${api_key}"
+```
 
-> JSON:
+> JSON response:
 
 ```json
 {
@@ -149,13 +153,190 @@ Returns a <a class="link" href="#financing-process">Financing process</a> instan
 }
 ```
 
-| Parameter     | Type    | Description                            |
-| ------------- | ------- | -------------------------------------- |
-| token         | String  | The unique identifier for the process  |
-| status        | String  | The current status of the process      |
-| date          | String  | The date when the process was created  |
-| error         | String  | Any error that occurred during the process |
-| process_type  | String  | The type of process being executed     |
-| result        | Object  | The result of the process              |
+### HTTP Request
+
+<span class="tag green">GET</span>
+`<%= config[:url] %>/v1/companies/buyers/financing_processes/${token}`
+
+### Response
+
+Returns a <a class="link" href="#financing-process">Financing process</a> instance
+
+### Parameters
+
+| Parameter                  | Type    | Required | Description                                                                                          |
+| -------------------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| token                      | String  | `true`   | The unique identifier for the financing process                                                      |
+
+
+## Financing Process
+
+> JSON:
+
+```json
+{
+  "token": "123456789abcdef",
+  "status": "done",
+  "date": "2025-06-15T12:00:00Z",
+  "error": null,
+  "process_type": "upload",
+  "result": {
+    "successes": [
+      {
+        "data": {
+          "buyer": {
+            "name": "ACME CORPORATION SA DE CV",
+            "tax_id": "ABC123456D89",
+            "cfdi_use": "G01",
+            "zip_code": 12345,
+            "fiscal_scheme": 601
+          },
+          "document": {
+            "date": "2025-10-05T17:59:59.999-06:00",
+            "uuid": "12345678-1234-1234-1234-123456789012",
+            "total": 1000.0,
+            "currency": "MXN",
+            "due_date": "2026-01-23T17:59:59.999-06:00",
+            "factoring_id": "123456789",
+            "factoring_type": "N",
+            "taxes": {
+              "vat": {
+                "translation": {
+                  "tax": 2.0,
+                  "base": 1000.0,
+                  "total": 137.93,
+                  "maximum": 0.16,
+                  "factor_type": "Tasa"
+                }
+              }
+            }
+          },
+          "supplier": {
+            "factoring_id": "987654"
+          },
+          "reference": "Sample Product Reference",
+          "additional_1": "1234-ABC123456D89"
+        },
+        "line": 1,
+        "content": "987654|123456789|05/10/2025|23/01/2026|01|1000|N|Sample Product Reference|..."
+      }
+    ],
+    "errors": [
+      {
+        "line": 2,
+        "error": "RFC receptor no vinculado a la cuenta: XYZ987654E21",
+        "content": "12345|987654321|07/09/2025|26/12/2025|01|882306.48|N|Another Product Reference|..."
+      }
+    ],
+    "error_total": 882306.48,
+    "success_total": 1000.0
+  }
+}
+```
+
+The Financing Process object represents the current state of an asynchronous operation in the Factoro system. Use the `token` to poll for status updates until the process completes.
+
+### Response Properties
+
+| Parameter     | Type    | Required | Description                                    |
+| ------------- | ------- | -------- | ---------------------------------------------- |
+| token         | String  | ✓        | Unique identifier for tracking this process   |
+| status        | String  | ✓        | Current process status (see values below)     |
+| date          | String  | ✓        | ISO 8601 timestamp when process was created   |
+| error         | String  | -        | Error message if status is `error`, otherwise `null` |
+| process_type  | String  | ✓        | Type of operation (`upload`, `approval`, etc.) |
+| result        | Object  | ✓        | Process results (populated when status is `done`) |
+
+### Result Object Structure
+
+When the process completes (`status` is `done`), the `result` object contains:
+
+| Parameter  | Type    | Description                                           |
+| ---------- | ------- | ----------------------------------------------------- |
+| successes  | Array   | Array of successfully processed items with parsed data |
+| errors     | Array   | Array of error objects for items that failed processing |
+
+<aside class="notice">
+<strong>Mixed Results:</strong> A single process can contain both successes and errors. Each line in your uploaded file is processed independently.
+</aside>
+
+### Success Object Structure
+
+Each success in the `result.successes` array has the following structure:
+
+| Parameter | Type   | Description                                        |
+| --------- | ------ | -------------------------------------------------- |
+| data      | Object | Parsed and structured data from the processed line |
+| line      | Number | Line number in the uploaded file that was processed |
+| content   | String | The original raw content/data from the file |
+
+#### Data Object Structure
+
+The `data` object contains the parsed information organized into logical sections:
+
+| Parameter     | Type   | Description                                    |
+| ------------- | ------ | ---------------------------------------------- |
+| buyer         | Object | Information about the buyer/receptor           |
+| document      | Object | Invoice/document details and metadata         |
+| supplier      | Object | Information about the supplier/emisor         |
+| reference     | String | Reference description for the transaction     |
+| additional_1  | String | Additional field 1 (buyer reference)         |
+| additional_2  | String | Additional field 2 (internal reference)      |
+| additional_4  | String | Additional field 4 (amount reference)        |
+| additional_5  | String | Additional field 5 (UUID reference)          |
+
+#### Buyer Object
+
+| Parameter      | Type   | Description                    |
+| -------------- | ------ | ------------------------------ |
+| name           | String | Legal name of the buyer        |
+| tax_id         | String | Tax identification number      |
+| cfdi_use       | String | CFDI usage code               |
+| zip_code       | Number | Postal code                   |
+| fiscal_scheme  | Number | Fiscal regime code            |
+
+#### Document Object
+
+| Parameter              | Type   | Description                           |
+| ---------------------- | ------ | ------------------------------------- |
+| date                   | String | Document creation date (ISO 8601)    |
+| uuid                   | String | Unique document identifier            |
+| total                  | Number | Total document amount                 |
+| currency               | String | Currency code (e.g., "MXN")          |
+| due_date               | String | Payment due date (ISO 8601)          |
+| factoring_id           | String | Factoring identification number       |
+| factoring_type         | String | Type of factoring operation          |
+| credit_note_reference  | String | Credit note reference (if applicable) |
+| taxes                  | Object | Tax breakdown information             |
+
+#### Supplier Object
+
+| Parameter     | Type   | Description                    |
+| ------------- | ------ | ------------------------------ |
+| factoring_id  | String | Supplier's factoring ID        |
+
+### Error Object Structure
+
+Each error in the `result.errors` array has the following structure:
+
+| Parameter | Type   | Description                                        |
+| --------- | ------ | -------------------------------------------------- |
+| line      | Number | Line number in the uploaded file where error occurred |
+| error     | String | Human-readable error message describing the issue |
+| content   | String | The actual content/data from the file that caused the error |
+
+### Status Values
+
+The `status` field indicates the current state of your financing process:
+
+| Status        | Description                                      | Next Steps                              |
+| ------------- | ------------------------------------------------ | --------------------------------------- |
+| `in_process`  | Process is currently running                     | Poll this endpoint until status changes |
+| `done`        | Process completed successfully                   | Check `result` object for details       |
+| `error`       | Process failed with an error                    | Check `error` field for details         |
+
+<aside class="notice">
+<strong>Polling Recommendation:</strong> When status is <code>in_process</code>, poll this endpoint every 5-10 seconds to check for updates. Avoid polling more frequently to prevent rate limiting.
+</aside>
 
 
