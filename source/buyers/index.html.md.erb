@@ -29,11 +29,9 @@ Some actions of this API trigger notifications. This means that some (or all) of
 in each instruction will receive and email with the corresponding information.
 Each action that does, will have it in the description.
 
-We broke down information result into Models, to maintain a simpler and cleaner looking documentation. You can see our models <a class="link" href="#models">here</a>.
-
 # Sandbox
 
-The endpoints are the same in both Sandbox and Production environments. The only thing that changes is the base URI.
+The endpoints are the same in both Sandbox and Production environments. The only thing that changes is the base URL.
 
 To use the API in Sandbox mode, replace the base url with `https://sandbox-api.factoro.mx`.
 
@@ -167,6 +165,65 @@ Returns a <a class="link" href="#financing-process">Financing process</a> instan
 | Parameter                  | Type    | Required | Description                                                                                          |
 | -------------------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | token                      | String  | `true`   | The unique identifier for the financing process                                                      |
+
+<aside class="notice">
+<strong>Polling Recommendation:</strong> When status is <code>in_process</code>, poll this endpoint every 5-10 seconds to check for updates. Avoid polling more frequently to prevent rate limiting.
+</aside>
+
+
+# Reports
+
+## Get Operations Report
+
+```shell
+curl -X GET "<%= config[:url] %>/v1/companies/buyers/reports/financing/operations" \
+  -H "Authorization: Bearer ${secret_key}" -H "X-API-KEY: ${api_key}"
+```
+
+> JSON response:
+
+```json
+{
+  "date": "2025-10-17",
+  "total": 10000,
+  "documents": [
+    {
+      "id": 1,
+      "uuid": "12345678-1234-1234-1234-123456789012",
+      "total": 5000,
+      "status": "processed",
+      "balance": 5000,
+      "factoring_id": "FAC123",
+      "movement_folio": "MOV123",
+      "discount_percentage": 100,
+      "affiliated_company_relation": "parent_company",
+      "credit_note_reference": null,
+      "folio": "FOL123",
+      "supply_chain_finance_rate": 0.03,
+      "due_date_date": "2025-12-31",
+      "processed_at": "2025-10-15T12:00:00Z",
+      "bank_account_number": "1234567890",
+      "discount_total": 150,
+      "bank_account_bank_name": "Bank of Factoro"
+    }
+  ]
+}
+```
+
+### HTTP Request
+
+<span class="tag green">GET</span>
+`<%= config[:url] %>/v1/companies/buyers/reports/financing/operations`
+
+### Response
+
+Returns a <a class="link" href="#operations-report">Operations report</a> instance
+
+### Parameters
+
+| Parameter                  | Type    | Required | Description                                                                                          |
+| -------------------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| date                       | String  | `false`   | The date to check the report. Defaults to current date                                               |
 
 
 ## Financing Process
@@ -335,8 +392,75 @@ The `status` field indicates the current state of your financing process:
 | `done`        | Process completed successfully                   | Check `result` object for details       |
 | `error`       | Process failed with an error                    | Check `error` field for details         |
 
-<aside class="notice">
-<strong>Polling Recommendation:</strong> When status is <code>in_process</code>, poll this endpoint every 5-10 seconds to check for updates. Avoid polling more frequently to prevent rate limiting.
-</aside>
+## Operation Report
 
+> JSON:
 
+```json
+{
+  "date": "2025-10-17",
+  "total": 10000,
+  "documents": [
+    {
+      "id": 1,
+      "uuid": "12345678-1234-1234-1234-123456789012",
+      "total": 5000,
+      "status": "processed",
+      "balance": 5000,
+      "factoring_id": "FAC123",
+      "movement_folio": "MOV123",
+      "discount_percentage": 100,
+      "affiliated_company_relation": "parent_company",
+      "credit_note_reference": null,
+      "folio": "FOL123",
+      "supply_chain_finance_rate": 0.03,
+      "due_date_date": "2025-12-31",
+      "processed_at": "2025-10-15T12:00:00Z",
+      "bank_account_number": "1234567890",
+      "discount_total": 150,
+      "bank_account_bank_name": "Bank of Factoro"
+    }
+  ]
+}
+```
+
+### Response Properties
+
+| Parameter     | Type    | Required | Description                                    |
+| ------------- | ------- | -------- | ---------------------------------------------- |
+| date         | String  | ✓        | The date for the report   |
+| total        | Number  | ✓        | Total amount for the report   |
+| documents    | Array   | ✓        | List of document operation details             |
+
+### Documents Object Structure
+
+When the process completes (`status` is `done`), the `documents` array contains:
+
+| Parameter  | Type    | Description                                           |
+| ---------- | ------- | ----------------------------------------------------- |
+| id  | Number   | ID of the successfully processed item                 |
+| uuid     | String   | UUID of the document that failed processing            |
+| total      | Number  | Total amount of the document                          |
+| status     | String  | Current status of the document                        |
+| balance    | Number  | Remaining balance of the document                    |
+| factoring_id | String | Factoring identification number                       |
+| movement_folio | String | Movement folio associated with the document          |
+| discount_percentage | Number | Discount percentage applied to the document          |
+| affiliated_company_relation | String | Relation to affiliated company (e.g., parent_company) |
+| credit_note_reference | String | Reference to any associated credit note               |
+| folio | String | Folio number of the document                           |
+| supply_chain_finance_rate | Number | Supply chain finance rate applied to the document     |
+| due_date_date | String | Due date of the document                               |
+| processed_at | String | Timestamp when the document was processed             |
+| bank_account_number | String | Bank account number associated with the document      |
+| discount_total | Number | Total discount applied to the document                |
+| bank_account_bank_name | String | Name of the bank associated with the bank account     |
+
+### Status Values
+
+The `status` field indicates the current state of your financing process:
+
+| Status        | Description                                      |
+| ------------- | ------------------------------------------------ |
+| `processed`  | Document was processed and it's awaiting payment by the buyer |
+| `paid`        | Document was paid by the buyer                   |
