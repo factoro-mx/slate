@@ -113,7 +113,7 @@ curl -X POST "<%= config[:url] %>/v1/financial_institutions/credit_lines" \
   "status": "in_process",
   "date": "2025-06-15T12:00:00Z",
   "error": null,
-  "process_type": "upload",
+  "process_type": "layout_upload",
   "result": {}
 }
 ```
@@ -148,7 +148,7 @@ curl -X GET "<%= config[:url] %>/v1/companies/buyers/financing_processes/${token
   "status": "in_process",
   "date": "2025-06-15T12:00:00Z",
   "error": null,
-  "process_type": "upload",
+  "process_type": "layout_upload",
   "result": {}
 }
 ```
@@ -239,7 +239,7 @@ Returns a <a class="link" href="#operations-report">Operations report</a> instan
   "status": "done",
   "date": "2025-06-15T12:00:00Z",
   "error": null,
-  "process_type": "upload",
+  "process_type": "layout_upload",
   "result": {
     "successes": [
       {
@@ -304,7 +304,7 @@ The Financing Process object represents the current state of an asynchronous ope
 | status        | String  | ✓        | Current process status (see values below)     |
 | date          | String  | ✓        | ISO 8601 timestamp when process was created   |
 | error         | String  | -        | Error message if status is `error`, otherwise `null` |
-| process_type  | String  | ✓        | Type of operation (`upload`, `approval`, etc.) |
+| process_type  | String  | ✓        | Type of operation (`layout_upload`, `approval`, etc.) |
 | result        | Object  | ✓        | Process results (populated when status is `done`) |
 
 ### Result Object Structure
