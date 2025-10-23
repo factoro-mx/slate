@@ -186,29 +186,209 @@ curl -X GET "<%= config[:url] %>/v1/companies/buyers/reports/financing/operation
 
 ```json
 {
-  "date": "2025-10-17",
-  "total": 10000,
-  "documents": [
-    {
-      "id": 1,
-      "uuid": "12345678-1234-1234-1234-123456789012",
-      "total": 5000,
-      "status": "processed",
-      "balance": 5000,
-      "factoring_id": "FAC123",
-      "movement_folio": "MOV123",
-      "discount_percentage": 100,
-      "affiliated_company_relation": "parent_company",
-      "credit_note_reference": null,
-      "folio": "FOL123",
-      "supply_chain_finance_rate": 0.03,
-      "due_date_date": "2025-12-31",
-      "processed_at": "2025-10-15T12:00:00Z",
-      "bank_account_number": "1234567890",
-      "discount_total": 150,
-      "bank_account_bank_name": "Bank of Factoro"
-    }
-  ]
+    "id": "financing.report.2025-10-23",
+    "date": "2025-10-23T00:00:00.000-0600",
+    "documents": [
+        {
+            "id": 143329,
+            "affiliated_company_relation": "3062-ETA961112N9A",
+            "balance": 0.0,
+            "bank": {
+                "id": 248,
+                "alias": "Bank QA ",
+                "billing_email": "bank_qa_facturacion@factoro.pro",
+                "capital_scheme": null,
+                "company_type": "moral",
+                "factoring_id": null,
+                "fiscal_name": "KAPITAL S.A. de C.V.",
+                "fiscal_scheme": {
+                    "id": 34,
+                    "cfdi_version": "4.0",
+                    "code": "620",
+                    "description": "Sociedades cooperativas de producción que optan por diferir sus ingresos",
+                    "moral_person": true,
+                    "physical_person": false
+                },
+                "invoicing_emails": [
+                    "bank_qa_facturacion@factoro.pro"
+                ],
+                "name": "KAPITAL",
+                "new_capital_scheme": {
+                    "id": 1,
+                    "abbreviation": "S.A. de C.V.",
+                    "code": "s_a_c_v",
+                    "name": "Sociedad Anónima de Capital Variable"
+                },
+                "tax_id": "BAM051107QA1"
+            },
+            "bank_account_bank_name": "Banco Mercantil del Norte, S.A., Institución de Banca Múltiple, Grupo Financiero Banorte",
+            "bank_account_number": "072180899174832247",
+            "credit_note_reference": "",
+            "currency": {
+                "id": 100,
+                "code": "MXN",
+                "description": "Peso Mexicano"
+            },
+            "date": "2025-10-13T23:59:59.999+0000",
+            "discount_percentage": 100.0,
+            "discount_total": 1000.0,
+            "document_type": "I",
+            "due_date": "2026-01-31T05:59:59.999+0000",
+            "due_date_date": "2026-01-30T00:00:00.000+0000",
+            "emitter": {
+                "id": 5840,
+                "alias": null,
+                "billing_email": null,
+                "capital_scheme": null,
+                "company_type": "moral",
+                "factoring_id": "FAC6541671",
+                "fiscal_name": "UMAMI SOLUCIONES S.A. de C.V.",
+                "fiscal_scheme": {
+                    "id": 22,
+                    "cfdi_version": "4.0",
+                    "code": "601",
+                    "description": "General de Ley Personas Morales",
+                    "moral_person": true,
+                    "physical_person": false
+                },
+                "invoicing_emails": [],
+                "name": "UMAMI SOLUCIONES",
+                "new_capital_scheme": {
+                    "id": 1,
+                    "abbreviation": "S.A. de C.V.",
+                    "code": "s_a_c_v",
+                    "name": "Sociedad Anónima de Capital Variable"
+                },
+                "tax_id": "USO180824JJ8"
+            },
+            "factoring_id": "768601923",
+            "folio": "f5be6fde",
+            "movement_folio": "YBSKFV9XVYBVPO",
+            "processed_at": "2025-10-23T19:52:30.488+0000",
+            "receiver": {
+                "id": 5734,
+                "alias": null,
+                "billing_email": null,
+                "capital_scheme": null,
+                "company_type": "moral",
+                "factoring_id": "F2325",
+                "fiscal_name": "EMPRESAS TAJIN S.A. de C.V.",
+                "fiscal_scheme": null,
+                "invoicing_emails": [],
+                "name": "EMPRESAS TAJIN",
+                "new_capital_scheme": {
+                    "id": 1,
+                    "abbreviation": "S.A. de C.V.",
+                    "code": "s_a_c_v",
+                    "name": "Sociedad Anónima de Capital Variable"
+                },
+                "tax_id": "ETA961112N9A"
+            },
+            "supply_chain_finance_rate": 11.9412,
+            "total": 1000.0,
+            "uuid": "321d7ef6-75ad-4fad-b6db-04a0de82feef"
+        },
+        {
+            "id": 143331,
+            "affiliated_company_relation": "3062-ETA961112N9A",
+            "balance": 0.0,
+            "bank": {
+                "id": 248,
+                "alias": "Bank QA ",
+                "billing_email": "bank_qa_facturacion@factoro.pro",
+                "capital_scheme": null,
+                "company_type": "moral",
+                "factoring_id": null,
+                "fiscal_name": "KAPITAL S.A. de C.V.",
+                "fiscal_scheme": {
+                    "id": 34,
+                    "cfdi_version": "4.0",
+                    "code": "620",
+                    "description": "Sociedades cooperativas de producción que optan por diferir sus ingresos",
+                    "moral_person": true,
+                    "physical_person": false
+                },
+                "invoicing_emails": [
+                    "bank_qa_facturacion@factoro.pro"
+                ],
+                "name": "KAPITAL",
+                "new_capital_scheme": {
+                    "id": 1,
+                    "abbreviation": "S.A. de C.V.",
+                    "code": "s_a_c_v",
+                    "name": "Sociedad Anónima de Capital Variable"
+                },
+                "tax_id": "BAM051107QA1"
+            },
+            "bank_account_bank_name": "Banco Mercantil del Norte, S.A., Institución de Banca Múltiple, Grupo Financiero Banorte",
+            "bank_account_number": "072180899174832247",
+            "credit_note_reference": "",
+            "currency": {
+                "id": 100,
+                "code": "MXN",
+                "description": "Peso Mexicano"
+            },
+            "date": "2025-10-13T23:59:59.999+0000",
+            "discount_percentage": 100.0,
+            "discount_total": 1000.0,
+            "document_type": "I",
+            "due_date": "2026-01-31T05:59:59.999+0000",
+            "due_date_date": "2026-01-30T00:00:00.000+0000",
+            "emitter": {
+                "id": 5840,
+                "alias": null,
+                "billing_email": null,
+                "capital_scheme": null,
+                "company_type": "moral",
+                "factoring_id": "FAC6541671",
+                "fiscal_name": "UMAMI SOLUCIONES S.A. de C.V.",
+                "fiscal_scheme": {
+                    "id": 22,
+                    "cfdi_version": "4.0",
+                    "code": "601",
+                    "description": "General de Ley Personas Morales",
+                    "moral_person": true,
+                    "physical_person": false
+                },
+                "invoicing_emails": [],
+                "name": "UMAMI SOLUCIONES",
+                "new_capital_scheme": {
+                    "id": 1,
+                    "abbreviation": "S.A. de C.V.",
+                    "code": "s_a_c_v",
+                    "name": "Sociedad Anónima de Capital Variable"
+                },
+                "tax_id": "USO180824JJ8"
+            },
+            "factoring_id": "165360494",
+            "folio": "47d1f5a9",
+            "movement_folio": "YBSKFV9XVYBVPO",
+            "processed_at": "2025-10-23T19:52:30.488+0000",
+            "receiver": {
+                "id": 5734,
+                "alias": null,
+                "billing_email": null,
+                "capital_scheme": null,
+                "company_type": "moral",
+                "factoring_id": "F2325",
+                "fiscal_name": "EMPRESAS TAJIN S.A. de C.V.",
+                "fiscal_scheme": null,
+                "invoicing_emails": [],
+                "name": "EMPRESAS TAJIN",
+                "new_capital_scheme": {
+                    "id": 1,
+                    "abbreviation": "S.A. de C.V.",
+                    "code": "s_a_c_v",
+                    "name": "Sociedad Anónima de Capital Variable"
+                },
+                "tax_id": "ETA961112N9A"
+            },
+            "supply_chain_finance_rate": 11.9412,
+            "total": 1000.0,
+            "uuid": "f05b83fe-bf76-4656-83e9-a0192da4ea5c"
+        }
+    ],
+    "total": 2000.0
 }
 ```
 
@@ -395,75 +575,226 @@ The `status` field indicates the current state of your financing process:
 | `done`        | Process completed successfully                   | Check `result` object for details       |
 | `error`       | Process failed with an error                    | Check `error` field for details         |
 
-## Operation Report
+## Operations Report
 
 > JSON:
 
 ```json
 {
-  "date": "2025-10-17",
-  "total": 10000,
+  "id": "financing.report.2025-10-23",
+  "date": "2025-10-23T00:00:00.000-0600",
   "documents": [
     {
-      "id": 1,
-      "uuid": "12345678-1234-1234-1234-123456789012",
-      "total": 5000,
-      "status": "processed",
-      "balance": 5000,
-      "factoring_id": "FAC123",
-      "movement_folio": "MOV123",
-      "discount_percentage": 100,
-      "affiliated_company_relation": "parent_company",
-      "credit_note_reference": null,
-      "folio": "FOL123",
-      "supply_chain_finance_rate": 0.03,
-      "due_date_date": "2025-12-31",
-      "processed_at": "2025-10-15T12:00:00Z",
-      "bank_account_number": "1234567890",
-      "discount_total": 150,
-      "bank_account_bank_name": "Bank of Factoro"
+      "id": 143329,
+      "affiliated_company_relation": "1234-ABC123456D89",
+      "balance": 0.0,
+      "bank": {
+        "id": 248,
+        "alias": "Sample Bank",
+        "billing_email": "billing@samplebank.com",
+        "capital_scheme": null,
+        "company_type": "moral",
+        "factoring_id": null,
+        "fiscal_name": "SAMPLE BANK S.A. de C.V.",
+        "fiscal_scheme": {
+          "id": 34,
+          "cfdi_version": "4.0",
+          "code": "620",
+          "description": "Sociedades cooperativas de producción que optan por diferir sus ingresos",
+          "moral_person": true,
+          "physical_person": false
+        },
+        "invoicing_emails": [
+          "invoicing@samplebank.com"
+        ],
+        "name": "SAMPLE BANK",
+        "new_capital_scheme": {
+          "id": 1,
+          "abbreviation": "S.A. de C.V.",
+          "code": "s_a_c_v",
+          "name": "Sociedad Anónima de Capital Variable"
+        },
+        "tax_id": "SBK123456XY9"
+      },
+      "bank_account_bank_name": "Sample Commercial Bank, S.A., Institución de Banca Múltiple",
+      "bank_account_number": "123456789012345678",
+      "credit_note_reference": "",
+      "currency": {
+        "id": 100,
+        "code": "MXN",
+        "description": "Peso Mexicano"
+      },
+      "date": "2025-10-13T23:59:59.999+0000",
+      "discount_percentage": 100.0,
+      "discount_total": 1000.0,
+      "document_type": "I",
+      "due_date": "2026-01-31T05:59:59.999+0000",
+      "due_date_date": "2026-01-30T00:00:00.000+0000",
+      "emitter": {
+        "id": 5840,
+        "alias": null,
+        "billing_email": null,
+        "capital_scheme": null,
+        "company_type": "moral",
+        "factoring_id": "FAC1234567",
+        "fiscal_name": "SAMPLE SUPPLIER S.A. de C.V.",
+        "fiscal_scheme": {
+          "id": 22,
+          "cfdi_version": "4.0",
+          "code": "601",
+          "description": "General de Ley Personas Morales",
+          "moral_person": true,
+          "physical_person": false
+        },
+        "invoicing_emails": [],
+        "name": "SAMPLE SUPPLIER",
+        "new_capital_scheme": {
+          "id": 1,
+          "abbreviation": "S.A. de C.V.",
+          "code": "s_a_c_v",
+          "name": "Sociedad Anónima de Capital Variable"
+        },
+        "tax_id": "SSP123456JJ8"
+      },
+      "factoring_id": "768601923",
+      "folio": "f5be6fde",
+      "movement_folio": "SAMPLE123FOLIO",
+      "processed_at": "2025-10-23T19:52:30.488+0000",
+      "receiver": {
+        "id": 5734,
+        "alias": null,
+        "billing_email": null,
+        "capital_scheme": null,
+        "company_type": "moral",
+        "factoring_id": "F2325",
+        "fiscal_name": "SAMPLE BUYER S.A. de C.V.",
+        "fiscal_scheme": null,
+        "invoicing_emails": [],
+        "name": "SAMPLE BUYER",
+        "new_capital_scheme": {
+          "id": 1,
+          "abbreviation": "S.A. de C.V.",
+          "code": "s_a_c_v",
+          "name": "Sociedad Anónima de Capital Variable"
+        },
+        "tax_id": "ABC123456D89"
+      },
+      "supply_chain_finance_rate": 11.9412,
+      "total": 1000.0,
+      "uuid": "12345678-1234-1234-1234-123456789012"
     }
-  ]
+  ],
+  "total": 2000.0
 }
 ```
 
 ### Response Properties
 
-| Parameter     | Type    | Required | Description                                    |
-| ------------- | ------- | -------- | ---------------------------------------------- |
-| date         | String  | ✓        | The date for the report   |
-| total        | Number  | ✓        | Total amount for the report   |
-| documents    | Array   | ✓        | List of document operation details             |
+| Parameter | Type   | Required | Description                                    |
+| --------- | ------ | -------- | ---------------------------------------------- |
+| id        | String | ✓        | Report identifier with date                    |
+| date      | String | ✓        | Report generation date (ISO 8601)             |
+| documents | Array  | ✓        | Array of financing operation documents         |
+| total     | Number | ✓        | Total amount across all documents in the report |
 
 ### Documents Object Structure
 
-When the process completes (`status` is `done`), the `documents` array contains:
+Each document in the `documents` array contains:
 
-| Parameter  | Type    | Description                                           |
-| ---------- | ------- | ----------------------------------------------------- |
-| id  | Number   | ID of the successfully processed item                 |
-| uuid     | String   | UUID of the document that failed processing            |
-| total      | Number  | Total amount of the document                          |
-| status     | String  | Current status of the document                        |
-| balance    | Number  | Remaining balance of the document                    |
-| factoring_id | String | Factoring identification number                       |
-| movement_folio | String | Movement folio associated with the document          |
-| discount_percentage | Number | Discount percentage applied to the document          |
-| affiliated_company_relation | String | Relation to affiliated company (e.g., parent_company) |
-| credit_note_reference | String | Reference to any associated credit note               |
-| folio | String | Folio number of the document                           |
-| supply_chain_finance_rate | Number | Supply chain finance rate applied to the document     |
-| due_date_date | String | Due date of the document                               |
-| processed_at | String | Timestamp when the document was processed             |
-| bank_account_number | String | Bank account number associated with the document      |
-| discount_total | Number | Total discount applied to the document                |
-| bank_account_bank_name | String | Name of the bank associated with the bank account     |
+| Parameter                   | Type   | Description                                           |
+| --------------------------- | ------ | ----------------------------------------------------- |
+| id                          | Number | Unique document identifier                            |
+| affiliated_company_relation | String | Company relation identifier                           |
+| balance                     | Number | Current balance remaining on the document             |
+| bank                        | Object | Bank information object                               |
+| bank_account_bank_name      | String | Full legal name of the bank                          |
+| bank_account_number         | String | Bank account number                                   |
+| credit_note_reference       | String | Reference to credit note (if applicable)             |
+| currency                    | Object | Currency information with id, code, and description   |
+| date                        | String | Document creation date (ISO 8601)                    |
+| discount_percentage         | Number | Discount percentage applied                           |
+| discount_total              | Number | Total discount amount                                 |
+| document_type               | String | Type of document (e.g., "I" for invoice)            |
+| due_date                    | String | Payment due date with timezone (ISO 8601)           |
+| due_date_date              | String | Due date without time component (ISO 8601)          |
+| emitter                     | Object | Document emitter/supplier company information         |
+| factoring_id               | String | Factoring identification number                       |
+| folio                      | String | Document folio                                        |
+| movement_folio             | String | Movement folio identifier                             |
+| processed_at               | String | Processing timestamp (ISO 8601)                      |
+| receiver                   | Object | Document receiver/buyer company information           |
+| supply_chain_finance_rate  | Number | Applied supply chain finance rate                     |
+| total                      | Number | Total document amount                                 |
+| uuid                       | String | Unique document identifier                            |
 
-### Status Values
+### Bank Object Structure
 
-The `status` field indicates the current state of your financing process:
+The `bank` object contains detailed bank information:
 
-| Status        | Description                                      |
-| ------------- | ------------------------------------------------ |
-| `processed`  | Document was processed and it's awaiting payment by the buyer |
-| `paid`        | Document was paid by the buyer                   |
+| Parameter           | Type    | Description                                |
+| ------------------- | ------- | ------------------------------------------ |
+| id                  | Number  | Bank unique identifier                     |
+| alias               | String  | Bank alias/short name                      |
+| billing_email       | String  | Bank billing email address                 |
+| capital_scheme      | Object  | Capital scheme information (nullable)      |
+| company_type        | String  | Type of company ("moral" or "fisica")     |
+| factoring_id        | String  | Bank's factoring ID (nullable)            |
+| fiscal_name         | String  | Official fiscal/legal name                 |
+| fiscal_scheme       | Object  | Fiscal scheme details with CFDI info      |
+| invoicing_emails    | Array   | Array of invoicing email addresses         |
+| name                | String  | Bank common name                           |
+| new_capital_scheme  | Object  | Updated capital scheme information         |
+| tax_id              | String  | Bank tax identification number             |
+
+### Fiscal Scheme Object
+
+The `fiscal_scheme` object contains:
+
+| Parameter       | Type    | Description                              |
+| --------------- | ------- | ---------------------------------------- |
+| id              | Number  | Fiscal scheme identifier                 |
+| cfdi_version    | String  | CFDI version (e.g., "4.0")             |
+| code            | String  | Fiscal scheme code                       |
+| description     | String  | Description of the fiscal scheme         |
+| moral_person    | Boolean | Whether it applies to moral persons      |
+| physical_person | Boolean | Whether it applies to physical persons   |
+
+### Capital Scheme Object
+
+The `new_capital_scheme` object contains:
+
+| Parameter     | Type   | Description                    |
+| ------------- | ------ | ------------------------------ |
+| id            | Number | Capital scheme identifier      |
+| abbreviation  | String | Short abbreviation             |
+| code          | String | Internal code                  |
+| name          | String | Full name of the scheme        |
+
+### Company Objects (Emitter/Receiver)
+
+Both `emitter` and `receiver` objects have the same structure:
+
+| Parameter           | Type    | Description                                |
+| ------------------- | ------- | ------------------------------------------ |
+| id                  | Number  | Company unique identifier                  |
+| alias               | String  | Company alias (nullable)                   |
+| billing_email       | String  | Billing email (nullable)                   |
+| capital_scheme      | Object  | Capital scheme information (nullable)      |
+| company_type        | String  | Type of company ("moral" or "fisica")     |
+| factoring_id        | String  | Company's factoring identifier             |
+| fiscal_name         | String  | Official fiscal/legal name                 |
+| fiscal_scheme       | Object  | Fiscal scheme details (nullable)           |
+| invoicing_emails    | Array   | Array of invoicing email addresses         |
+| name                | String  | Company common name                        |
+| new_capital_scheme  | Object  | Capital scheme information                 |
+| tax_id              | String  | Company tax identification number          |
+
+### Currency Object
+
+The `currency` object contains:
+
+| Parameter   | Type   | Description                    |
+| ----------- | ------ | ------------------------------ |
+| id          | Number | Currency identifier            |
+| code        | String | Currency code (e.g., "MXN")   |
+| description | String | Currency description           |
